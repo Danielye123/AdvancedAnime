@@ -4,7 +4,14 @@ import { TiLocationArrow } from "react-icons/ti";
 import { useWindowScroll } from "react-use";
 import gsap from "gsap";
 
-const navItems = ["Nexus", "Vault", "Prologue", "About", "Contact"];
+const navItems = [
+  { label: "Nexus", href: "#features" },
+  { label: "Prologue", href: "#story" },
+  { label: "Vault", href: "#gallery" },
+  { label: "Roadmap", href: "#roadmap" },
+  { label: "About", href: "#faq" },
+  { label: "Contact", href: "#contact" },
+];
 
 const Navbar = () => {
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
@@ -16,6 +23,11 @@ const Navbar = () => {
   const audioElementRef = useRef(null);
 
   const { y: currentScrollY } = useWindowScroll();
+
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
     if(currentScrollY === 0) {
@@ -60,22 +72,52 @@ const Navbar = () => {
     >
       <header className="absolute top-1/2 w-full -translate-y-1/2">
         <nav className="flex size-full items-center justify-between p-4">
-          <div className="flex items-center gap-7">
-            <img src="/img/logo.png" alt="logo" className="w-10" />
+          <div className="flex items-center gap-5">
+            <a href="#" aria-label="Zentry home" className="block w-12">
+              <svg viewBox="0 0 64 64" role="img" aria-label="Zentry" className="size-full">
+                <defs>
+                  <linearGradient
+                    id="zentry-mark"
+                    x1="0"
+                    y1="0"
+                    x2="64"
+                    y2="64"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop offset="0" stopColor="#c4b5fd" />
+                    <stop offset="1" stopColor="#bef264" />
+                  </linearGradient>
+                </defs>
+                <g
+                  fill="none"
+                  stroke="url(#zentry-mark)"
+                  strokeWidth="5"
+                  strokeLinejoin="round"
+                >
+                  <polygon points="32,7 54,19 54,45 32,57 10,45 10,19" />
+                </g>
+                <circle cx="32" cy="32" r="7" fill="url(#zentry-mark)" />
+              </svg>
+            </a>
 
             <Button
               id="production-button"
               title="Products"
               rightIcon={<TiLocationArrow />}
-              containerClass="bg-blue-50 md:flex hidden items-center justify-center gap-1"
+              containerClass="border border-white/30 !bg-transparent !text-blue-50 transition-colors duration-300 hover:!bg-blue-50 hover:!text-black md:flex hidden items-center justify-center gap-1"
             />
           </div>
 
           <div className="flex h-full items-center">
             <div className="hidden md:block">
               {navItems.map((item) => (
-                <a key={item} href={`#${item.toLowerCase()}`} className="nav-hover-btn">
-                  {item}
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={(e) => handleNavClick(e, item.href)}
+                  className="nav-hover-btn"
+                >
+                  {item.label}
                 </a>
               ))}
             </div>

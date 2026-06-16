@@ -56,7 +56,7 @@ const BentoCard = ({ src, title, description }) => {
 
 const Features = () => {
   return (
-    <section className="bg-black pb-52">
+    <section id="features" className="bg-black pb-52">
       <div className="container mx-auto px-3 md:px-10">
         <div className="px-5 py-32">
           <p className="font-circular-web text-lg text-blue-50">
@@ -87,10 +87,10 @@ const Features = () => {
             src="videos/feature-2.mp4"
             title={
               <>
-                zig<b>m</b>a
+                Zi<b>O</b>n
               </>
             }
-            description="An anime and gaming-inspired NFT collection - the IP primed for expansion."
+            description="An anime and gaming-inspired Art collection - the IP primed for expansion."
             isComingSoon
           />
         </BentoTilt>
